@@ -11,8 +11,12 @@ const dbPath = process.env.DB_PATH
 
 const db = new DatabaseSync(dbPath);
 
-// ─── WAL mode for performance ───────────────────────────────────────────────
-db.exec("PRAGMA journal_mode = WAL");
+// ─── WAL mode for performance / memory mode for serverless ──────────────────
+if (process.env.VERCEL) {
+  db.exec("PRAGMA journal_mode = memory");
+} else {
+  db.exec("PRAGMA journal_mode = WAL");
+}
 db.exec("PRAGMA foreign_keys = ON");
 
 // ─── Create Tables ──────────────────────────────────────────────────────────
