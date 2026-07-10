@@ -28,7 +28,7 @@ For example, when the Base44 project config includes a `serveCommand`, `base44 d
 ```json5
 {
   "site": {
-    "serveCommand": "npm run dev"
+    "serveCommand": "npm run dev:all"
   }
 }
 ```
@@ -40,7 +40,7 @@ In a Base44 project this lives in `base44/config.jsonc`.
 If you only want to work on the frontend against the hosted Base44 backend, run:
 
 ```bash
-npm run dev
+npm run dev:all
 ```
 
 Open the local URL printed by Vite.
