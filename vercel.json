@@ -14,9 +14,17 @@
       "config": {
         "includeFiles": ["server/epicurean.db"]
       }
+    },
+    {
+      "src": "server/version.js",
+      "use": "@vercel/node"
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/version",
+      "destination": "/server/version.js"
+    },
     {
       "source": "/api/:path*",
       "destination": "/server/index.js"
