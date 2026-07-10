@@ -2,7 +2,6 @@
   "name": "base44-app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run dev:frontend\"",
     "dev:frontend": "vite",
