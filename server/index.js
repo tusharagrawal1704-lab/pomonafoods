@@ -7,10 +7,15 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // ─── Middleware ────────────────────────────────────────────────────────────────
+const allowedOrigins = [
+  /^https?:\/\/localhost(:\d+)?$/,
+  /^https?:\/\/.*\.vercel\.app$/,
+];
+
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl) or any localhost port
-    if (!origin || /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+    // Allow requests with no origin (like mobile apps, curl), localhost, or Vercel domains
+    if (!origin || allowedOrigins.some(regex => regex.test(origin))) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -40,8 +45,12 @@ app.get('/api/health', (req, res) => {
 });
 
 // ─── Start ─────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n🍽️  PomonaFoods API`);
-  console.log(`   Running at http://localhost:${PORT}`);
-  console.log(`   Health check: http://localhost:${PORT}/api/health\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n🍽️  PomonaFoods API`);
+    console.log(`   Running at http://localhost:${PORT}`);
+    console.log(`   Health check: http://localhost:${PORT}/api/health\n`);
+  });
+}
+
+module.exports = app;

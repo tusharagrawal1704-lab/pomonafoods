@@ -1,7 +1,7 @@
 // Central API client — replaces @base44/sdk
 // All requests go to our Express backend
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 // ─── Token helpers ─────────────────────────────────────────────────────────────
 function getToken() {
